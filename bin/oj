@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$( cd "$( dirname "$(dirname "${BASH_SOURCE[0]}")" )" &> /dev/null && pwd )"
+
+function compile() {
+    local prog="$1"
+    local compiler="/usr/bin/clang++"
+    local options="-std=c++17 -fcolor-diagnostics -fansi-escape-codes -g"
+    local out_dir="$(dirname "$SCRIPT_DIR"/out/"${prog}")"
+    mkdir -p "$out_dir"
+    [ -n "$prog" ] && $compiler $options "$SCRIPT_DIR"/"${prog}".cpp -o "$SCRIPT_DIR"/out/"${prog}"
+}
+
+function run() {
+    local prog="$1"
+    [ -n "$prog" ] && "$SCRIPT_DIR"/out/"${prog}"
+}
+
+function test() {
+    local prog="$1"
+    [ -n "$prog" ] && "$SCRIPT_DIR"/out/"${prog}" <  "$SCRIPT_DIR"/"${prog}".in
+}
+
+function clear() {
+    local prog="$1"
+    [ -n "$prog" ] && rm -fr  "$SCRIPT_DIR"/out/${prog}*
+}
+
+function usage() {
+    echo "$0" compile "<prog>"
+    echo "$0" run "<prog>"
+    echo "$0" test "<prog>"
+    echo "$0" clear "<prog>"
+    echo "$0" cr "<prog>"
+    echo "$0" ct "<prog>"
+}
+
+subcmd=$1
+shift
+case "$subcmd" in
+    compile)
+        compile "$@"
+    ;;
+    run)
+        run "$@"
+    ;;
+    test)
+        test "$@"
+    ;;
+    clear)
+        clear "$@"
+    ;;
+    cr)
+        compile "$@"
+        run "$@"
+    ;;
+    ct)
+        compile "$@"
+        test "$@"
+    ;;
+    clear)
+        clear "$@"
+    ;;
+    *)
+        usage
+    ;;
+esac
