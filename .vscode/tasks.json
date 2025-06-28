@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: clang++ 生成活动文件",
+            "label": "C/C++: clang++ 编译",
             "command": "/usr/bin/clang++",
             "args": [
                 "-fcolor-diagnostics",
@@ -10,10 +10,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/out/${fileBasenameNoExtension}"
+                "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/out/${relativeFileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -34,7 +34,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/out/${fileBasenameNoExtension}",
+                "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
                 "-I",
                 "/opt/homebrew/include",
                 "-L",
@@ -64,10 +64,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/out/${fileBasenameNoExtension}"
+                "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/out/${relativeFileDirname}"
             },
             "problemMatcher": [
                 "$gcc"

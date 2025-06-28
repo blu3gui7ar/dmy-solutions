@@ -2,29 +2,42 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C/C++: 运行",
+            "name": "C/C++: 带输入运行",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/out/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
             "args": [
                 "<",
-                "${fileDirname}/in/${fileBasenameNoExtension}"
+                "${workspaceFolder}/${relativeFileDirname}/${fileBasenameNoExtension}.in"
             ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}/out/${relativeFileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang++ 编译"
+        },
+        {
+            "name": "C/C++: 控制台运行",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/out/${relativeFileDirname}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "lldb",
-            "preLaunchTask": "C/C++: clang++ 生成活动文件"
+            "preLaunchTask": "C/C++: clang++ 编译"
         },
         {
-            "name": "C/C++: clang++ 构建和调试活动文件",
+            "name": "C/C++: clang++ GTest并运行",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/out/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}/out/${relativeFileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
