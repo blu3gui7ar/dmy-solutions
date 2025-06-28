@@ -5,7 +5,49 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++带输入运行",
+            "name": "Mac.Clang++: 带输入运行",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
+            "args": [
+                "<",
+                "${workspaceFolder}/${relativeFileDirname}/${fileBasenameNoExtension}.in"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/out/${relativeFileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang++ 编译"
+        },
+        {
+            "name": "Mac.Clang++: 无输入运行",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/out/${relativeFileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang++ 编译"
+        },
+        {
+            "name": "Mac.Clang++ GTest并运行",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/out/${relativeFileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang++ 生成GTest活动文件"
+        },
+        {
+            "name": "Win.G++ 带输入运行",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\out\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe",
@@ -34,7 +76,7 @@
             "preLaunchTask": "C/C++: g++.exe build active file"
         },
         {
-            "name": "C++无输入运行",
+            "name": "Win.G++ 无输入运行",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\out\\${relativeFileDirname}\\${fileBasenameNoExtension}.exe",
