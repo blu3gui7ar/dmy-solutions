@@ -9,10 +9,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/out/${fileBasenameNoExtension}"
+                "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/out/${relativeFileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -33,7 +33,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/out/${fileBasenameNoExtension}",
+                "${workspaceFolder}/out/${relativeFileDirname}/${fileBasenameNoExtension}",
                 "-I",
                 "/opt/homebrew/include",
                 "-L",
@@ -42,7 +42,7 @@
                 "-lgtest_main"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/out/${relativeFileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
