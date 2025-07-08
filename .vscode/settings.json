@@ -120,7 +120,9 @@
         "__verbose_abort": "cpp",
         "execution": "cpp",
         "*.inc": "cpp",
-        "__config": "cpp"
+        "__config": "cpp",
+        "__assertion_handler": "cpp",
+        "__assert": "cpp"
     },
     "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
