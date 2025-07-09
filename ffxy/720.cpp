@@ -16,31 +16,31 @@ int main (int argc, char const *argv[]) {
     string s;
     cin >> s;
     
-    int num = 0;
+    unsigned long long num = 0;
     int i = 0;
     while(i < s.size()) {
         char c = s[i++];
-        if (c == '1') {
-            num += 1;
-        } else if (c == '.') {
+        if (c == '.') {
             cout << (num >> 1) << '.';
             break;
+        } else {
+            num += c - '0';
         }
         num <<= 1;
     }
 
-
     int base = 2;
     int TIMES = 1000;
+    num = 0;
     while(i < s.size()) {
-        if (s[i] == '1') {
-            num = TIMES / base;
-            i++;
-        } else if (s[i] == '0') {
-            i++;
-        }
+        char c = s[i++];
+        num += (c - '0') * TIMES / base;
         base <<= 1;
     }
-    cout << num << endl;
+    if (num == 0) {
+        cout << "000" << endl;
+    } else {
+        cout << num << endl;
+    }
     return 0;
 }
