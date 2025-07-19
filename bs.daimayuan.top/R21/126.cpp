@@ -5,10 +5,8 @@ const int MOD = 998244353;
 
 struct AccMove {
     int idx = 0;
-    ll up = 0;
-    ll down = 0;
-    ll left = 0;
-    ll right = 0;
+    ll x = 0;
+    ll y = 0;
     ll duration = 0;
 };
 
@@ -25,22 +23,22 @@ int main (int argc, char const *argv[]) {
     }
     
 
-    int n;
+    ll n;
     cin >> n;
-    vector<pair<char, int>> move(n+1);
+    vector<pair<char, ll>> move(n+1);
     vector<AccMove> accMove;
     AccMove accm;
     accMove.push_back(accm);
     for (int i = 1; i <= n; i++) {
         cin >> move[i].first >> move[i].second;
         if (move[i].first == 'U') {
-            accm.up += move[i].second;
+            accm.y += move[i].second;
         } else if (move[i].first == 'D') {
-            accm.down += move[i].second;
+            accm.y -= move[i].second;
         } else if (move[i].first == 'L') {
-            accm.left += move[i].second;
+            accm.x -= move[i].second;
         } else if (move[i].first == 'R') {
-            accm.right += move[i].second;
+            accm.x += move[i].second;
         }
         accm.duration += move[i].second;
         accm.idx = i;
@@ -49,62 +47,80 @@ int main (int argc, char const *argv[]) {
     int Q;
     cin >> Q;
     for (int i = 0; i < Q; i++) { 
-        int l, r; 
+        ll l, r; 
         ll t;
         cin >> l >> r >> t;
+        assert(l >= 1);
 
         AccMove loopMove;
-        loopMove.up = accMove[n].up - accMove[r].up + accMove[l-1].up;
-        loopMove.down = accMove[n].down - accMove[r].down + accMove[l-1].down;
-        loopMove.left = accMove[n].left - accMove[r].left + accMove[l-1].left;
-        loopMove.right = accMove[n].right - accMove[r].right + accMove[l-1].right;
+        loopMove.x = accMove[n].x - accMove[r].x + accMove[l-1].x;
+        loopMove.y = accMove[n].y - accMove[r].y + accMove[l-1].y;
         loopMove.duration = accMove[n].duration - accMove[r].duration + accMove[l-1].duration;
         
         ll loops = t / loopMove.duration;
         ll rem = t % loopMove.duration;
         
-        ll x = loops * (loopMove.right - loopMove.left);
-        ll y = loops * (loopMove.up - loopMove.down);
-        
-        AccMove m;
-        m.idx = -1;
-        m.up = m.down = m.right = m.left = -1;
-        m.duration = rem;
-        auto it = upper_bound(accMove.begin(), accMove.end(), m, [accMove, l, r](const AccMove& a, const AccMove& b) {
-            ll da = a.duration;
-            if (a.idx >= l && a.idx <= r) {
-                da = accMove[l - 1].duration;
-            }
-            ll db = b.duration;
-            if (b.idx >= l && b.idx <= r) {
-                db = accMove[l - 1].duration;
-            }
-            return da < db;
-        });
-        
+        ll x = loops * loopMove.x;
+        ll y = loops * loopMove.y;
         
         if (rem > 0) {
-            ll dt = it->duration;
-            ll dx = it->right - it->left;
-            ll dy = it->up - it->down;
-            if (it->idx > r) {
-                dt = it->duration - accMove[r].duration + accMove[l - 1].duration;
-                dx = it->right - it->left - (accMove[r].right - accMove[r].left) + (accMove[l-1].right - accMove[l-1].left);
-                dy = it->up - it->down - (accMove[r].up - accMove[r].down) + (accMove[l-1].up - accMove[l-1].down);
+            ll left = 1LL;
+            ll right = n + 1;
+            ll rs = n + 1;
+            while (left < right) {
+                ll mid = (left + right) / 2;
+                ll duration;
+                if (mid < l) {
+                    duration = accMove[mid].duration;
+                }
+                else if (mid >= l && mid <= r) {
+                    duration = accMove[l-1].duration;
+                }
+                else if (mid > r) {
+                    duration = accMove[mid].duration - accMove[r].duration + accMove[l - 1].duration;
+                }
+
+                if (duration < rem) {
+                    left = mid + 1;
+                    if (left >= l && left <= r) {
+                        left = r + 1;
+                    }
+                }
+                else if (duration >= rem) {
+                    rs = mid;
+                    right = mid;
+                    if (right >= l && right <= r) {
+                        right = l;
+                    }
+                }
             }
-            
+
+            AccMove found = accMove[rs];
+
+            ll dt = found.duration;
+            ll dx = found.x;
+            ll dy = found.y;
+            if (found.idx > r) {
+                dt = found.duration - accMove[r].duration + accMove[l - 1].duration;
+                dx = found.x - accMove[r].x + accMove[l - 1].x;
+                dy = found.y - accMove[r].y + accMove[l - 1].y;
+            }
+
             x += dx;
             y += dy;
-            
-            auto mv = move[it->idx];
+
+            auto mv = move[found.idx];
             ll diff = dt - rem;
             if (mv.first == 'R') {
                 x -= diff;
-            } else if (mv.first == 'L') {
+            }
+            else if (mv.first == 'L') {
                 x += diff;
-            } else if (mv.first == 'U') {
+            }
+            else if (mv.first == 'U') {
                 y -= diff;
-            } else {
+            }
+            else {
                 y += diff;
             }
         }
