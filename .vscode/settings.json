@@ -1,5 +1,5 @@
 {
-    "python.defaultInterpreterPath": "/Users/blu3gui7ar/.local/share/mise/installs/awscli/2.27.22/aws-cli.pkg/Payload/aws-cli/python",
+    "python.defaultInterpreterPath": "/Users/blu3gui7ar/.local/share/mise/installs/awscli/2.28.1/aws-cli.pkg/Payload/aws-cli/python",
     "files.associations": {
         "random": "cpp",
         "iostream": "cpp",
