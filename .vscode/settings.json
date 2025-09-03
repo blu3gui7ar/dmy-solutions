@@ -122,7 +122,8 @@
         "*.inc": "cpp",
         "__config": "cpp",
         "__assertion_handler": "cpp",
-        "__assert": "cpp"
+        "__assert": "cpp",
+        "*.in": "cpp"
     },
     "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
