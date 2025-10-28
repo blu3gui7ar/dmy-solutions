@@ -5,7 +5,8 @@ SCRIPT_DIR="$( cd "$( dirname "$(dirname "${BASH_SOURCE[0]}")" )" &> /dev/null &
 function compile() {
     local prog="$1"
     local compiler="/usr/bin/clang++"
-    local options="-std=c++17 -fcolor-diagnostics -fansi-escape-codes -g"
+    # local options="-std=c++17 -fcolor-diagnostics -fansi-escape-codes -g"
+    local options="-std=c++20 -fcolor-diagnostics -fansi-escape-codes -g"
     local out_dir="$(dirname "$SCRIPT_DIR"/out/"${prog}")"
     mkdir -p "$out_dir"
     [ -n "$prog" ] && $compiler $options "$SCRIPT_DIR"/"${prog}".cpp -o "$SCRIPT_DIR"/out/"${prog}"
