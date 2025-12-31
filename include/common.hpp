@@ -107,6 +107,34 @@ template<typename T> void sieve(T n, vector<bool> &is_prime) {
 }
 
 /**
+ * @brief 欧拉筛法/线性筛法，生成素数表
+ * @tparam T 数值类型
+ * @param n 筛选范围上限
+ * @param is_prime 预分配好的vector，将被填充为素数标记表
+ * @note 时间复杂度: O(n)
+ *       算法原理:
+ *         1. 初始化所有数为素数
+ *         2. 从2开始，将每个素数的倍数标记为非素数
+ *         3. 优化：每个数只被标记一次，且标记时使用最小质因数
+ * @pre is_prime应已预分配足够空间(is_prime.size() > n)
+ * @post is_prime[i]为true表示i是素数
+ */
+template<typename T> void euler_prime(T n, vector<bool> &is_prime) {
+    vector<T> primes;
+    is_prime[0] = is_prime[1] = false;  // 0和1不是素数
+    for (T i = 2; i <= n; i++) {
+        if (is_prime[i]) {  // 如果i是素数
+            primes.push_back(i);
+        } 
+        for (T p : primes) {
+            if (i * p > n) break; // 超出范围，停止标记
+            is_prime[i * p] = false; // i * p不是素数
+            if (i % p == 0) break; // 找到i的最小质因数p，停止标记，保证每个数只被标记一次
+        }
+    }
+}
+
+/**
  * @brief 基于素数表的质因数分解（带缓存优化）
  * @tparam T 数值类型
  * @param x 要分解的数
