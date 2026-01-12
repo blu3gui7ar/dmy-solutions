@@ -2,6 +2,8 @@
 using namespace std;
 typedef long long ll;
 const ll MOD = 1e9 + 7;
+int dp[200050] = {};
+
 int main (int argc, char const *argv[]) {
     // ios_base::sync_with_stdio(false);
     // cin.tie(nullptr);
@@ -13,32 +15,27 @@ int main (int argc, char const *argv[]) {
             freopen(argv[1], "r", stdin);
         }
     }
-    
     int n, a, b, c;
     cin >> n >> a >> b >> c;
     
-    int dp[200000] = {};
-    
-    for (int i = 1; i <= n; i++) {
-        if (i == c) {
-            dp[i] = 1;
-        }
-        if (i > c && i <= c + a) {
-            dp[i] =  (dp[i] + 1) % MOD;
-        }
-        if (i > c && i <= c + b) {
-            dp[i] =  (dp[i] + 1) % MOD;
-        }
+    int from = min(c - a, c - b);
 
-        if (i > c + a) {
-            dp[i] = (dp[i - a] + dp[i]) % MOD;
+    for (int i = min(from, 1); i <= n; i++) {
+        int base = (i <= c ? 1 : dp[i]);
+        if (i + a > c && i + a <= n) {
+            dp[i + a] = (dp[i + a] + base) % MOD;
         }
-        if (i > c + b) {
-            dp[i] = (dp[i - b] + dp[i]) % MOD;
+        if (i + b > c && i + b <= n) {
+            dp[i + b] = (dp[i + b] + base) % MOD;
         }
+        
+        // cout << dp[i] << ' ';
+        // if (i % 20 == 0) {
+        //     cout << endl;
+        // }
     }
+    // cout << endl;
     
-    cout << dp[n];
-
+    cout << (n > c ? dp[n] : 1);
     return 0;
 }
