@@ -1,0 +1,25 @@
+// Project-local debug tasks
+//
+// For more documentation on how to configure debug tasks,
+// see: https://zed.dev/docs/debugger
+[
+  {
+    "label": "Mac.Clang++: 无输入运行",
+    "build": {
+      "command": "/usr/bin/clang++",
+      "args": [
+        "-std=c++20",
+        "-fcolor-diagnostics",
+        "-fansi-escape-codes",
+        "-g",
+        "$ZED_WORKTREE_ROOT/$ZED_RELATIVE_DIR/$ZED_FILENAME",
+        "-o",
+        "$ZED_WORKTREE_ROOT/out/$ZED_RELATIVE_DIR/$ZED_STEM",
+      ],
+      "cwd": "$ZED_WORKTREE_ROOT/out/$ZED_RELATIVE_DIR",
+    },
+    "program": "$ZED_WORKTREE_ROOT/out/$ZED_RELATIVE_DIR/$ZED_STEM",
+    "request": "launch",
+    "adapter": "CodeLLDB",
+  },
+]
